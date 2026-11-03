@@ -66,9 +66,14 @@ tools, MCP servers, files, web search) can feed a board: ask it to fetch the dat
 out with the same components.
 
 > [!TIP]
-> **Use a capable model.** A good board means planning a layout and writing valid structured data in one go. It's
-> tested with DeepSeek V4.1 Flash, where it works great. If boards come out thin or keep failing their checks, try a
-> stronger model.
+> **Use a capable model.** A good board means planning a layout and writing valid structured data in one go. Tested
+> so far:
+> - **DeepSeek V4.1 Flash** (Ollama Cloud): works great.
+> - **Qwen3.6 35B-A3B** (local, MLX 4-bit): works well.
+> - **Gemma 4 26B-A4B** (local): fine for small boards, but big ones sometimes come back as text instead of a drawing.
+>
+> Each model lays out its answers its own way; the plugin keeps the look the same. If boards come out thin or keep
+> failing their checks, try a stronger model.
 
 | | Try asking |
 |---|---|
