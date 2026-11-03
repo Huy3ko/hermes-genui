@@ -80,11 +80,18 @@ You need [Hermes Agent](https://github.com/NousResearch/hermes-agent) 0.22.5 or 
 
 ```bash
 hermes plugins install sagarmainkar/hermes-genui --enable   # add -p <profile> for a profile other than default
+hermes config set tools.tool_search.enabled off             # keeps the plugin's tools in view (why: below)
 hermes gateway restart                                       # loads the plugin's tools and data routes
 ```
 
 Prefer clicking? In Hermes Desktop, open **Capabilities → Plugins → Install from Git** and enter
-`sagarmainkar/hermes-genui`.
+`sagarmainkar/hermes-genui`, then run the second and third lines above.
+
+> [!IMPORTANT]
+> **Why turn off tool search?** Hermes's default (`auto`) hides plugin tools behind a search bridge, where the model
+> has to write each board as escaped text inside another call. Big boards often break there: you'll see red
+> "Unnamed call" rows before the board appears. With tool search off, every tool in that profile is offered on each
+> message, so a profile with many MCP servers uses more tokens. A separate profile just for hermes-genui avoids that.
 
 Then turn on the drawing half in Hermes Desktop:
 
@@ -96,13 +103,6 @@ Start a new chat and try:
 
 > *How's the NIFTY doing this year?* · *Compare TCS, Infosys and Wipro over a year* · *Plan a 5-day Kerala trip for
 > a family of four* · *Explain how a UPI payment works* · *EMI on a ₹40 lakh home loan, let me play with the rate*
-
-> [!TIP]
-> **Recommended:** turn off tool search for the profile, so the plugin's tools are offered directly. Long layouts can
-> break when they travel through the search bridge.
-> ```bash
-> hermes config set tools.tool_search.enabled off
-> ```
 
 ### 🔑 Optional keys, for more and better photos
 
@@ -173,7 +173,8 @@ Found a security issue? Please see [SECURITY.md](SECURITY.md).
 | The plugin isn't in **Capabilities → Plugins** | Switch the profile selector at the top to the profile you installed it in. |
 | "Couldn't load this block" | Run `hermes gateway restart` after installing or updating. |
 | A board arrives as text | You're outside Hermes Desktop (Telegram, the CLI), which is by design. In Desktop, check the plugin's **Desktop** switch. |
-| The model built an HTML widget instead | Start a new chat, or ask "draw it with blocks". Tool search being on can also cause this; see the tip above. |
+| Red "Unnamed call" rows, or `tool_call 'calls' is not valid JSON` | Tool search is on. Run `hermes config set tools.tool_search.enabled off` (add `-p <profile>`), then start a new chat. |
+| The model built an HTML widget instead | Start a new chat, or ask "draw it with blocks". Tool search being on can also cause this; see Install. |
 | Few or slow photos | Add a photo key above. A source that fails is skipped automatically and retried after 10 minutes. |
 
 ## 🤝 Contributing
