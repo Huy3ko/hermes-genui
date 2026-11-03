@@ -114,6 +114,11 @@ Then turn on the drawing half in Hermes Desktop:
 2. Pick the **profile** you installed into at the top of the page. The list is per profile.
 3. Open **hermes-genui** and switch **Desktop** on.
 
+**Hermes on one machine, Desktop on another?** (say a Mac mini at home and a laptop that connects to it) Run the
+commands above on the machine that runs Hermes. Then, on each computer whose Desktop connects to it, use **Install from
+Git** with `sagarmainkar/hermes-genui` and switch **Desktop** on. The drawing half lives in each Desktop app, not on
+the server.
+
 Start a new chat and try:
 
 > *Compare NVDA, AAPL and MSFT over the past year* · *Plan a 4-day Yosemite trip for two* · *Explain how transformers
