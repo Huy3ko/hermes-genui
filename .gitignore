@@ -1,0 +1,17 @@
+# Private working notes: never published
+docs/
+HANDOVER.md
+.superpowers/
+
+# Dependencies, caches and build leftovers
+web/node_modules/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# desktop/plugin.js is the shipped Desktop half: keep it.
+
+# Local agent worktrees and settings
+.claude/
+.playwright-mcp/

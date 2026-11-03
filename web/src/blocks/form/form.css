@@ -1,0 +1,55 @@
+/* Form: at most 720px wide at the top of a reply (like a calculator), filling its place in a layout block. */
+.hb-blocks > .hb-form { max-width: 720px; }
+.hb-form-field { display: block; padding: 8px 0; }
+.hb-form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.hb-form-sent fieldset { opacity: 0.6; }
+.hb-form-label { display: block; margin-bottom: 6px; font-size: 13.5px; font-weight: 600; color: var(--hb-ink-2); }
+.hb-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--hb-line-strong);
+  border-radius: 12px;
+  background: var(--hb-surface);
+  color: var(--hb-ink);
+  font: inherit;
+  font-size: 14px;
+  color-scheme: light dark;
+}
+textarea.hb-input { height: auto; padding: 8px 12px; line-height: 20px; resize: vertical; }
+.hb-input:focus { outline: 2px solid var(--hb-accent); outline-offset: -1px; }
+.hb-input::placeholder { color: var(--hb-muted); }
+.hb-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.hb-option {
+  min-height: 34px;
+  max-width: 100%;
+  margin: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--hb-line-strong);
+  border-radius: 999px;
+  background: none;
+  color: var(--hb-ink);
+  font: inherit;
+  font-size: 13.5px;
+  line-height: 18px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.hb-option:hover { background: var(--hb-well); }
+.hb-option-on, .hb-option-on:hover { border-color: var(--hb-accent); background: var(--hb-accent-soft); color: var(--hb-accent-ink); font-weight: 600; }
+.hb-option:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: 2px; }
+.hb-option:disabled { cursor: default; }
+.hb-form-foot { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 8px; }
+.hb-form-done { flex: 1; font-size: 12.5px; font-weight: 600; color: var(--hb-good); }
+/* Form extras: group headings, option notes, a select's note and a slider's end words */
+.hb-form-group { padding: 12px 0 0; font-size: 12px; font-weight: 700; color: var(--hb-muted); }
+.hb-option-note { display: block; font-size: 11.5px; line-height: 15px; font-weight: 400; color: var(--hb-muted); }
+.hb-option-on .hb-option-note { color: var(--hb-accent-ink); }
+.hb-form-note { display: block; margin-top: 4px; font-size: 12px; line-height: 16px; color: var(--hb-muted); }
+.hb-form-ends { display: flex; justify-content: space-between; gap: 8px; margin-top: 2px; font-size: 11px; color: var(--hb-muted); }
+@media (prefers-reduced-motion: reduce) {
+  .hb-option { transition: none; }
+}

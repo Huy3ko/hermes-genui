@@ -1,0 +1,67 @@
+A JSON list of blocks, each with a `type`, drawn in order; broken ones are skipped. Numbers only from tools or the user.
+Icons: mail, rupee, bell, cal, check, clock, chart, photo, spark, chat, brain, sun, moon, sunset, note, globe, search, heart, plane, bed, food, walk, pin, trophy, lock, star, leaf, flame, ticket, info, alert.
+
+chart: A trend, a comparison, or parts of a whole. Use for: line: trends. bar: periods or items; bars turn sideways for long labels or rankings; time stays upright. hbar: rankings, 2-5 named items. donut, pie: parts of a whole, 3-7 parts. stacked: parts of a total over time. area: growth that builds up. combo: two measures. 2-3 items on several metrics: a table, not a chart each. Fields: kind (as above). title. x: labels. series: [{name, data: numbers, null for a gap}], 1-3 (stacked, area: up to 6; pie, donut: 1). combo: first series bars, the rest lines (another unit gets its own axis). unit: "%", "₹Cr", "$M" or a word. tone: "change" colours one line by gain or loss. source: site name.
+Example: {"type":"chart","kind":"bar","title":"Revenue vs profit","x":["Dec 2025","Mar 2026","Jun 2026"],"unit":"₹Cr","series":[{"name":"Revenue","data":[67087,70698,72275]},{"name":"Net profit","data":[10720,13784,13420]}]}
+kpis: 2-4 headline numbers, change and trend. Use for: The top of a report. Fields: items: [{label, value: number or short text, unit, change, change_unit: "%" | "pt", trend: 2-60 numbers}], ≤4.
+Example: {"type":"kpis","items":[{"label":"Revenue","value":72275,"unit":"₹Cr","change":2.2},{"label":"Net margin","value":18.6,"unit":"%","change":-0.9,"change_unit":"pt"}]}
+timeline: A plan, day by day: timed stops with place, icon and note. Use for: Itineraries, schedules, timed steps. Fields: title. groups ≤14: [{label, items ≤12: [{time, title, place, note, icon}]}]; only title required.
+Example: {"type":"timeline","groups":[{"label":"Day 1 · Fri 9 Oct","items":[{"time":"07:00","title":"Fushimi Inari","icon":"walk","note":"Go early."}]},{"label":"Day 2 · Sat 10 Oct","items":[{"time":"08:30","title":"Arashiyama","icon":"leaf"}]}]}
+images: A strip of real photos with captions. Use for: What a place or thing looks like. Fields: title. images 1-12: [{url, caption, source: site name}].
+Example: {"type":"images","title":"Kyoto","images":[{"url":"https://upload.wikimedia.org/wikipedia/commons/1/16/KyotoFushimiInariLarge.jpg","caption":"Fushimi Inari","source":"Wikimedia"}]}
+table: Options compared on the same attributes. Use for: Phones, plans, hotels. Fields: columns ≤8. rows ≤30, a cell per column. highlight: {row: n} | {column: n} from 0, badged Best. caption.
+Example: {"type":"table","caption":"Phones under ₹50k","columns":["Phone","Price","Camera"],"highlight":{"row":0},"rows":[["Pixel 10a","₹44,999","Best in class"],["Nothing 4","₹39,999","OK"]]}
+callout: A tinted box: a warning, a tip or the takeaway. Use for: Warnings, tips, the verdict. One per reply. Fields: tone: info | tip | warn. title. text.
+Example: {"type":"callout","tone":"tip","text":"Pixel for photos; Nothing for price."}
+source: A small line naming the data's source. Use for: Last block, for outside data. Fields: text. url (optional).
+Example: {"type":"source","text":"screener.in · TCS · Jun 2026 quarter","url":"https://www.screener.in/company/TCS/"}
+list: Rows: rank, icon or photo, title, subtitle, value. Use for: Rankings, top picks, results. Fields: title. ranked: true numbers rows. items ≤12: [{title, subtitle, value, icon or image, run: sent on tap, or url}].
+Example: {"type":"list","title":"Cafés nearby","ranked":true,"items":[{"title":"Third Wave","subtitle":"80 Feet Road","value":"4.5★"},{"title":"Dyu Art Café","subtitle":"Garden seats","value":"4.4★"}]}
+progress: A value on a track to a goal; checkpoints ticked. Use for: Savings, challenges, training. Fields: title. value. goal (> 0). unit. steps ≤6: [{label, at: number}].
+Example: {"type":"progress","title":"Level 4","value":95,"goal":120,"unit":"XP","steps":[{"label":"60 XP","at":60},{"label":"120 XP","at":120}]}
+streak: A big count and the week, days ticked. Use for: Daily habits. Fields: count. label, unit (default "Current streak", "days"). days: up to 7 [{label, date, done, today}].
+Example: {"type":"streak","count":2,"days":[{"label":"Mon","done":true},{"label":"Tue","done":true},{"label":"Wed","today":true}]}
+heatmap: A grid of cells shaded by value. Use for: Sectors by quarter, habits by weekday. Fields: title. rows, cols: ≤12 labels each. values: a list per row. unit. scale: diverging (default with a value < 0) | sequential.
+Example: {"type":"heatmap","title":"Banks, % change","rows":["JPM","GS"],"cols":["Q1","Q2"],"values":[[4.1,-1.2],[7.5,2.2]],"unit":"%"}
+flip: Flash cards: question front, answer (and photo) back. Use for: Quizzes, revision. Fields: title. cards: [{front (≤120 chars), back (≤240), image}], 2-12.
+Example: {"type":"flip","title":"Asian Games","cards":[{"front":"Most golds?","back":"China · 201"},{"front":"Host city?","back":"Nagoya"}]}
+flow: Boxes joined by arrows, holding chips of what's in them. Use for: Explainers, 4-8 stages. A chain only; branching graphs: a mermaid code block in the reply. Fields: id (for steps). title. direction: right | down. nodes 2-10: [{id, label, icon, note ≤280, holds: ≤10 chips (text ≤16 or {text, tone: accent})}]. groups ≤3: [{label, nodes: adjacent ids, count: 2-100}] frame a repeat.
+Example: {"type":"flow","id":"tf","nodes":[{"id":"tok","label":"Tokens","holds":["The","cat"]},{"id":"attn","label":"Attention"},{"id":"out","label":"Next word"}],"groups":[{"label":"Repeated","nodes":["attn"],"count":6}]}
+steps: A walkthrough with Back / Next. Use for: After a flow: each step lights its node and changes the stage. Fields: title. for: a flow id. items 2-12: [{title, text ≤600, node, image, holds: {node id: chips}, send: true (packet from the last lit node), tick: 1-20 (rerun its group)}].
+Example: {"type":"steps","for":"tf","items":[{"title":"Split","text":"Into **tokens**.","node":"tok"},{"title":"Mix","node":"attn","send":true,"holds":{"attn":["mixed"]}}]}
+layers: Slabs in light 3D, bottom first; Next pulls one out with its note. Use for: A stack of layers or levels (network, model, atmosphere). Fields: title. caption. layers 2-12: [{id, label ≤24, tone: blue | amber | green | violet | accent | grey, note ≤280}].
+Example: {"type":"layers","title":"Network stack","layers":[{"id":"ip","label":"Internet","tone":"blue","note":"Routes packets."},{"id":"app","label":"Application","tone":"green"}]}
+actions: Up to 3 buttons that send a message. Use for: An obvious next step. Fields: items: [{label, run: the message}].
+Example: {"type":"actions","items":[{"label":"Analyze","run":"Analyze TCS: last 4 quarters"}]}
+tiles: 2-8 cover cards. Use for: Choices to explore. Fields: items: [{title, subtitle, image, icon, ask: fills the composer | run: sends}].
+Example: {"type":"tiles","items":[{"title":"Arashiyama","icon":"leaf","ask":"Add Arashiyama"},{"title":"Gion","icon":"moon","run":"Add a Gion walk"}]}
+checklist: Items to tick; ticks are saved. Use for: Packing lists, to-dos, steps. Fields: title. items: [text | {text, group}], ≤40. numbered: true for steps.
+Example: {"type":"checklist","title":"Packing","items":["Jacket",{"text":"ID card","group":"Papers"}]}
+calculator: Sliders; results update live. Use for: EMI, SIP, what-ifs; never do this maths in text. Fields: inputs ≤6: [{id, label, min, max, step, value, unit}]. outputs ≤6: [{label, formula, unit}]. formula: ids, numbers, + - * / ^ ( ) < > ==, min, max, round(x, n), abs, if(c, a, b), emi(p, rate%, years), sip(monthly, rate%, years), pct(part, whole), prepay_years|prepay_interest(p, rate%, years, yearly_extra), balance|principal_paid|interest_paid(p, rate%, years, after_years), sip_value(monthly, rate%, after_years). chart (live): {kind: line|area|bar, title, unit, x: {name, from, to, step: numbers or formulas, label: "Year {<x name>}"}, series ≤3: [{name, formula using x's name}]}.
+Example: {"type":"calculator","inputs":[{"id":"p","label":"Loan","max":10000000,"value":4000000,"unit":"₹"},{"id":"r","label":"Rate %","min":6,"max":12,"value":8.5},{"id":"n","label":"Years","min":5,"max":30,"value":20}],"outputs":[{"label":"EMI","formula":"emi(p, r, n)","unit":"₹"}],"chart":{"kind":"line","title":"Owed vs interest paid","unit":"₹","x":{"name":"y","from":0,"to":"n","step":1},"series":[{"name":"Balance","formula":"balance(p, r, n, y)"},{"name":"Interest","formula":"interest_paid(p, r, n, y)"}]}}
+simulate: A formula played over time, as dots or a line that draws itself. Use for: A quantity over time; never this maths in text. Fields: title. t: {name, to, step, unit, speed}. inputs ≤4: calculator sliders, by name. values: {name: number}. view: {kind: dots | chart, per: amount a dot is, start, piles 1-3: [{name, formula (as calculator), adds}]}. unit. source.
+Example: {"type":"simulate","t":{"name":"y","to":30,"unit":"years"},"inputs":[{"name":"r","label":"Rate %","min":6,"max":14,"value":10}],"values":{"P":100000},"view":{"per":10000,"piles":[{"name":"Simple","formula":"P*(1+r/100*y)"},{"name":"Compound","formula":"P*(1+r/100)^y","adds":"compounding"}]},"unit":"₹"}
+form: Fields to fill; Send posts one message. Use for: Before a big answer when two or more key choices are unknown: ask with ONE form, every field prefilled with your best guess, then build from the answer message. Not for a single yes/no (use actions). Fields: id, title. fields ≤12: {id, kind: select|radio|checkbox|slider|text, label, value, required, group: a heading shared with the fields after it}. options for select, radio, checkbox: text or {value, label, note}. slider: min, max, step, unit, ends: [left, right]. text: placeholder, multiline.
+Example: {"type":"form","id":"trip","title":"Weekend","fields":[{"id":"where","kind":"radio","label":"Where","value":"Hills","options":["Hills","Beach"]},{"id":"spend","kind":"slider","label":"Budget","max":30,"value":12,"unit":"k"}]}
+row: 2-3 small blocks side by side; they stack when narrow. Use for: Two stats, a badge beside a link. Fields: children: 2-3 of stat, kpis, callout, text, badge, button, bar, link or image.
+Example: {"type":"row","children":[{"type":"stat","label":"Spent","value":18400,"unit":"₹"},{"type":"stat","label":"Left","value":6600}]}
+section: A titled card of blocks; collapsed: true folds it. Use for: A table and its verdict; a card per day; details (collapsed). Fields: title. collapsed. children: any blocks but a section.
+Example: {"type":"section","title":"Getting there","collapsed":true,"children":[{"type":"text","text":"Fly to Coimbatore, then 3h by road."}]}
+grid: 2-6 small blocks in two columns. Use for: Stats, photos or bars. Fields: children: 2-6 small blocks.
+Example: {"type":"grid","children":[{"type":"bar","label":"Food","value":7200,"max":8000,"unit":"₹"},{"type":"bar","label":"Packed","value":6,"max":9}]}
+columns: 2-3 big blocks side by side; they stack when narrow. Use for: Dashboards: a chart beside a table. Fields: children: 2-3 blocks (no section or columns).
+Example: {"type":"columns","children":[{"type":"chart","kind":"bar","title":"Revenue, $B","x":["Q1","Q2"],"series":[{"name":"Revenue","data":[90.2,102.3]}]},{"type":"table","columns":["Quarter","Margin"],"rows":[["Q2","34%"]]}]}
+tabs: 2-6 labelled tabs. Top level only. Use for: A view per profile, stock or scenario. Fields: tabs: [{label (≤30 chars), children: any blocks but tabs}].
+Example: {"type":"tabs","tabs":[{"label":"Rent","children":[{"type":"stat","label":"Monthly","value":45000,"unit":"₹"}]},{"label":"Buy","children":[{"type":"stat","label":"EMI","value":52000,"unit":"₹"}]}]}
+include: A tool's board (market_history, find_photos), placed by its id. Use for: Dashboards around a tool's board. Fields: id from the tool's tag.
+Example: {"type":"include","id":"7f3a09bc"}
+Atoms (small; fine in a row or grid):
+- heading: A title line between blocks. Fields: text. {"type":"heading","text":"Day 1 · Ooty"}
+- text: A short paragraph. Fields: text (plain; **bold** works). {"type":"text","text":"Leaves at 7:10; **book early**."}
+- stat: One big number with a change chip. Fields: label, value, unit, change, change_unit (optional). {"type":"stat","label":"Saved","value":12500,"unit":"₹","change":8}
+- divider: A thin line. Fields: none. {"type":"divider"}
+- badge: A small pill. Fields: text. tone: good | warn. {"type":"badge","text":"Open now","tone":"good"}
+- link: A line of linked text. Fields: text. url: https. {"type":"link","text":"Book on IRCTC","url":"https://www.irctc.co.in"}
+- button: One button. Fields: label. run: message, or url: https. {"type":"button","label":"Plan day 2","run":"Plan day 2 of my Ooty trip"}
+- image: One photo with a caption. Fields: url. caption (optional). {"type":"image","url":"https://upload.wikimedia.org/wikipedia/commons/1/16/KyotoFushimiInariLarge.jpg"}
+- bar: One progress bar. Fields: label, value, max (default 100), unit. {"type":"bar","label":"Budget used","value":62}

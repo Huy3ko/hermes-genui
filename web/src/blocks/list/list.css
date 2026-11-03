@@ -1,0 +1,77 @@
+/* List */
+.hb-list { padding: 4px 0; overflow: hidden; }
+.hb-list-heading { padding: 8px 16px 2px; font-size: 13px; font-weight: 700; color: var(--hb-muted); }
+.hb-list-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--hb-line);
+  color: inherit;
+  text-decoration: none;
+}
+.hb-list > .hb-list-row:first-child, .hb-list-heading + .hb-list-row { border-top: 0; }
+.hb-list-link { cursor: pointer; transition: background 0.15s; }
+.hb-list-link:hover { background: var(--hb-well); }
+.hb-list-rank {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--hb-accent-soft);
+  color: var(--hb-accent-ink);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.hb-list-photo { flex: none; width: 44px; height: 44px; border-radius: 12px; object-fit: cover; background: var(--hb-well); }
+.hb-list-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--hb-accent-soft);
+  color: var(--hb-accent-ink);
+}
+.hb-list-initial {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+.hb-list-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.hb-list-title { font-size: 14.5px; line-height: 20px; font-weight: 600; overflow-wrap: anywhere; }
+.hb-list-subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 1px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--hb-muted);
+}
+.hb-list-value { flex: none; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hb-list-chevron { flex: none; color: var(--hb-muted); }
+.hb-section .hb-list { padding: 0; }
+
+/* List rows that send a message when tapped */
+.hb-list-button {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--hb-line);
+  background: none;
+  font: inherit;
+  text-align: left;
+}
+.hb-list-button:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: -2px; }

@@ -1,0 +1,54 @@
+/* Hermes GenUI: every class starts with hb- so nothing leaks into the app.
+   Colours come from Hermes's own theme variables, so blocks follow light and dark mode. */
+.hb-blocks {
+  --hb-ink: var(--foreground, #1f2328);
+  --hb-ink-2: color-mix(in srgb, var(--hb-ink) 80%, transparent);
+  --hb-muted: var(--ui-text-tertiary, color-mix(in srgb, var(--hb-ink) 55%, transparent));
+  --hb-line: color-mix(in srgb, var(--hb-ink) 10%, transparent);
+  --hb-card: color-mix(in srgb, var(--hb-ink) 3%, transparent);
+  --hb-well: color-mix(in srgb, var(--hb-ink) 6%, transparent);
+  --hb-accent: var(--theme-primary, #2f6fed);
+  --hb-accent-soft: color-mix(in srgb, var(--hb-accent) 13%, transparent);
+  --hb-accent-ink: color-mix(in srgb, var(--hb-accent) 85%, var(--hb-ink));
+  --hb-good: var(--ui-success, #1a7f37);
+  --hb-warn: #c2410c;
+  /* The page behind the blocks, for the few marks that must hide what's under them (a progress checkpoint). */
+  --hb-surface: var(--background, Canvas);
+  /* A raised card (a chart's hover card). */
+  --hb-shadow: 0 8px 28px rgba(15, 20, 30, 0.14), 0 1px 3px rgba(15, 20, 30, 0.1);
+  /* Series colours in the order they are handed out, checked so neighbours stay apart for colour-blind readers:
+     blue, amber, green, violet, cyan, red, lime, pink. */
+  --hb-chart-1: #4f7cff;
+  --hb-chart-2: #f59e0b;
+  --hb-chart-3: #10b981;
+  --hb-chart-4: #8b5cf6;
+  --hb-chart-5: #06b6d4;
+  --hb-chart-6: #ef4444;
+  --hb-chart-7: #84cc16;
+  --hb-chart-8: #ec4899;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0;
+  /* A board stops at a comfortable reading width on a wide screen. */
+  max-width: 1100px;
+  color: var(--hb-ink);
+  font-family: var(--dt-font-sans, inherit);
+  font-size: 14px;
+  line-height: 1.45;
+}
+/* Dark mode (Hermes puts .dark on the page): the warning orange lightened to read on a dark background, a deeper
+   shadow. */
+.dark .hb-blocks {
+  --hb-warn: #f0883e;
+  --hb-shadow: 0 8px 28px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+/* A stronger line, for chart axes, checkboxes and inputs. */
+.hb-blocks { --hb-line-strong: color-mix(in srgb, var(--hb-ink) 18%, transparent); }
+.hb-blocks * { box-sizing: border-box; }
+/* The chat wraps text "anywhere", which lets a label in a flex row shrink to one letter per line. Blocks wrap only
+   between words (long words still break when they must). */
+.hb-blocks { overflow-wrap: break-word; }
+/* The chat's prose styles give images, figures and tables their own margins; blocks place their own. */
+.hb-blocks img, .hb-blocks figure, .hb-blocks table { margin: 0; }

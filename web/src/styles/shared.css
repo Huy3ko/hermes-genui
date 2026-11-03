@@ -1,0 +1,69 @@
+/* Pieces several blocks share: cards, chips, pill buttons and the motion they use. */
+/* Cards */
+.hb-card {
+  background: var(--hb-card);
+  border: 1px solid var(--hb-line);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.hb-card-title {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+/* Chips */
+.hb-chip {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hb-chip-soft { background: var(--hb-accent-soft); color: var(--hb-accent-ink); }
+.hb-chip-good { background: color-mix(in srgb, var(--hb-good) 14%, transparent); color: var(--hb-good); }
+.hb-chip-warn { background: color-mix(in srgb, var(--hb-warn) 13%, transparent); color: var(--hb-warn); }
+.hb-chip-plain { background: var(--hb-well); color: var(--hb-ink-2); }
+/* Pill buttons that act (actions, button, a form's Send): soft for buttons in a reply, solid for a form's Send. */
+.hb-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  max-width: 100%;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--hb-accent-soft);
+  color: var(--hb-accent-ink);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.hb-pill svg { flex: none; }
+.hb-pill:hover { background: color-mix(in srgb, var(--hb-accent) 22%, transparent); }
+.hb-pill:active { transform: scale(0.97); }
+.hb-pill:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: 2px; }
+.hb-pill-solid { background: var(--hb-accent); color: #fff; }
+.hb-pill-solid:hover { background: color-mix(in srgb, var(--hb-accent) 86%, #000); }
+.hb-pill:disabled { opacity: 0.45; cursor: default; transform: none; }
+.hb-pill-solid:disabled:hover { background: var(--hb-accent); }
+/* Motion: a panel appearing (section, tabs, photo overlay) and a bar growing (bar, progress). */
+.hb-appear { animation: hb-appear 0.22s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes hb-appear { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes hb-grow { from { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .hb-pill { transition: none; }
+  .hb-appear { animation: none; }
+}

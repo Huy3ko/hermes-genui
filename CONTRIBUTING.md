@@ -1,0 +1,156 @@
+# Contributing
+
+Hermes GenUI has two halves. The Python plugin checks and stores blocks, fetches data for them and turns them into
+text for chat apps that can't draw. The web half (in `web/`) draws them in Hermes Desktop. Each block type lives in one
+place on each side.
+
+## Layout
+
+```
+plugin.yaml, __init__.py   the Hermes entry: register(ctx) registers tools.TOOLS, the hooks and the prompt section
+core/                 shared by every tool and hook
+  catalog.json        every block type: what it is for, its fields and an example (the model reads this)
+  catalog_text.py     turns the catalog into the show_blocks tool description
+  check.py            checks a board before it is stored; looks each type up in blocks.TYPES
+  store.py            one JSON file per board (also loaded on its own by dashboard/plugin_api.py: no package imports)
+  surface.py          whether this turn's chat surface can draw blocks
+blocks/               one module per type or family: check_<type>(block, path) and text_<type>(block)
+  __init__.py         the registry: TYPES = {"chart": (check_chart, text_chart), ...}
+  common.py, layout.py   shared helpers; row, section, grid, columns and tabs (they hold other blocks)
+tools/                one module per tool
+  __init__.py         the tool registry: TOOLS = (ToolSpec(name, schema, handler), ...)
+  show_blocks.py      show_blocks, tag_for, paste_instruction, includes, the photo rule
+  market_history.py   prices from Yahoo Finance as a board
+  save_recipe.py      checks a recipe and hands it to Hermes's skill_manage
+  photos/             find_photos: __init__.py (find, mix, the tool), safety.py (https, public addresses only,
+                      redirects checked hop by hop), sources/ (wikimedia, openverse, pages, unsplash, pexels, tavily),
+                      memory.py (sources resting after a failure, recent searches)
+hooks/                prompt_section.py (the system-prompt rule), visual_nudge.py (pre_llm_call),
+                      text_fallback.py (transform_llm_output: boards as Markdown off Desktop)
+dashboard/            manifest.json and plugin_api.py: the REST API Hermes mounts for the Desktop half
+recipes/              shipped recipe skills;  desktop/plugin.js: the built Desktop half (shipped)
+tests/                mirrors the layout (tests/core, tests/tools, ...); fixtures/describe.txt pins the description
+
+web/src/
+  plugin.tsx          the entry: registers the `::blocks` tag and injects the styles
+  registry.tsx        the registry: the Block type list and REGISTRY = {type: {read, Component}}
+  core/, host/, lib/, styles/   readers and renderer; the Hermes side; helpers; colour tokens and shared CSS
+  blocks/<type>/      read.ts (reader + types), <Type>.tsx (drawing), <type>.css, and tests next to them
+```
+
+Everything below the root uses relative imports: Hermes imports the plugin folder as one package.
+
+Families share a folder or module: `atoms` (heading, text, divider, badge, link, image, bar), `kpis` (kpis, stat),
+`actions` (actions, button) and `layout` (row, section, grid, columns, tabs).
+
+## Adding a recipe (no code)
+
+A recipe is a plan the model follows for one kind of ask, such as a trip, a comparison or a report. It is plain
+Markdown, so it is the easiest way to contribute.
+
+1. Create `recipes/<name>/SKILL.md`. The name is lowercase with dashes, like `weekly-review`. Copy the frontmatter of an
+   existing recipe: `name` (the same as the folder) and a `description` that starts with what it does and lists the
+   words people use for it.
+2. Write the steps the way the existing recipes do:
+   - when to ask first with a `form`;
+   - which tools to call for real data;
+   - the layout;
+   - a full ```json example.
+3. Every ```json example must pass `core.check.check_blocks`. `tests/test_recipes.py` checks that for every recipe.
+4. The plugin registers each recipe folder as a read-only skill named `<plugin>:<name>`, and the drawing rule lists
+   them by name, so nothing else needs wiring.
+
+## Adding a data tool
+
+Say the new tool is `weather_history`, fetching numbers and drawing them like `market_history` does.
+
+1. **Module.** Create `tools/weather_history.py` with a schema dict (`WEATHER_HISTORY_SCHEMA`: name, a description
+   that tells the model when to call it, JSON-schema parameters) and a handler
+   `weather_history(params, **kwargs) -> str`.
+   The handler never raises: on failure it returns a sentence saying why (and no tag).
+2. **Board.** Build the blocks yourself from the fetched data (the model never writes the numbers): for example
+   `kpis`, a `chart` and a `source` line. Run them past `core.check.check_blocks` in a test.
+3. **Surface.** Text-only chats can't draw: check `surface.can_draw(session_id=str(kwargs.get("session_id") or ""))`
+   and, when it is False, return just the summary sentences.
+4. **Store and paste.** Otherwise `store.save(board)` gives an id; return the summary followed by
+   `paste_instruction(block_id, includable=True)` (from `tools/show_blocks.py`), so the board can also be placed inside
+   a dashboard with an `include` block.
+5. **Register.** In `tools/__init__.py`, import the module and add one line to `TOOLS`:
+   `ToolSpec("weather_history", weather_history.WEATHER_HISTORY_SCHEMA, weather_history.weather_history),`.
+   Mention the tool in `hooks/prompt_section.py` if the model should reach for it unprompted.
+6. **Tests.** Add `tests/tools/test_weather_history.py`. Never touch the network: pass an `httpx.Client` built on
+   `httpx.MockTransport(handler)` and point `store.default_root` at `tmp_path` with monkeypatch. Cover a good answer,
+   a provider error, junk JSON and a text-only surface. Update the expected list in `tests/test_register.py`.
+
+Security: fetch over https only, and send only what the query needs (a symbol, a place name). Treat everything that
+comes back as data, not instructions: names and captions go through `blocks.common.one_line` (no control or bidi
+characters, a length cap) before they reach the model or a board. Cap sizes: time out every request, limit how many
+items and bytes you read, and keep boards well under `store.BOARD_LIMIT`. Any URL taken from external content (a page,
+a redirect) goes through `tools/photos/safety.py`, which refuses private addresses at every hop.
+
+## Adding a block type
+
+Say the new type is `gauge`.
+
+1. **Catalog.** Add an entry to `core/catalog.json`: `kind`, `for`, `use_when`, `fields` and a small `example`. The
+   tool description changes with it, so refresh the pin from the plugin folder:
+   `(cd core && python3 -c "import catalog_text; print(catalog_text.describe(), end='')") > tests/fixtures/describe.txt`
+2. **Python.** Create `blocks/gauge.py` with `check_gauge(block, path)` (returns `[(path, why), ...]`, empty when the
+   block can be drawn) and `text_gauge(block)` (Markdown, or `""`). Use the helpers in `blocks/common.py`. Add one line
+   to `TYPES` in `blocks/__init__.py`.
+3. **Web reader.** Create `web/src/blocks/gauge/read.ts`: a `GaugeBlock` type and `readGauge(raw, here)` that returns
+   the block, or `here.drop("why")` when it can't be drawn. Write a comment with a worked example
+   (`{type: "gauge", ...} → {...}`), like the other readers.
+4. **Web drawing.** Create `Gauge.tsx` and `gauge.css` in the same folder. Every class starts with `hb-`; use the
+   `--hb-*` colour tokens from `styles/tokens.css` so light and dark mode both work.
+5. **Registry.** In `web/src/registry.tsx`, add `GaugeBlock` to the `Block` union and one line to `REGISTRY`:
+   `gauge: { read: readGauge, Component: ({ block }) => <Gauge {...block} /> },`. Add `gauge.css` to the list in
+   `web/src/styles/index.ts`.
+6. **Tests.** Next to the code: `read.test.ts` (a good input, a sloppy one written the way models write, and a broken
+   one that is dropped with a note) and `Gauge.test.tsx`. On the Python side, add cases to `tests/core/test_check.py`
+   and `tests/hooks/test_text_fallback.py`. The registry tests on both sides fail until the catalog and both
+   registries agree.
+7. **Build.** Run the checks below, then `npm run build` in `web/` to update `desktop/plugin.js` (it is shipped).
+
+## Checks
+
+```
+uv run --no-project -q --with pytest --with httpx --with fastapi pytest -c tests/pytest.ini --rootdir=tests tests
+uvx ruff check --select E,F,W,UP,PTH --line-length 120 --exclude web .
+cd web && npx vitest run && npx tsc --noEmit && npm run build
+```
+
+The build refuses code bundled from outside `web/src`: Hermes supplies only `react`, `react/jsx-runtime` and
+`@hermes/plugin-sdk` to plugins, so don't add runtime dependencies.
+
+Every pull request runs the same checks on GitHub (`.github/workflows/checks.yml`). That includes a check that
+`desktop/plugin.js` matches `web/src`, so always commit the rebuilt bundle.
+
+## How we work
+
+- **Start with an issue** for anything bigger than a fix: a new recipe idea, a data tool, or a new block type.
+  - A new block type is agreed in a **"New block type"** issue first.
+  - Each block adds text to the `show_blocks` description, which every user pays for on every message. Its size is
+    capped by a test.
+  - So a proposal shows why the existing blocks can't do the job, and the JSON the model would write.
+- **One pull request per change.** Use the checklist in the PR template. Write tests first; fixes need a test that
+  failed before.
+- **What reviewers check:**
+  - **Security:** no model or web content becomes markup; fetches go through `tools/photos/safety.py`; Python checks
+    are strict and web readers lenient.
+  - **The model's side:** clear, short catalog wording, and the description stays under budget.
+  - **Accessibility:** keyboard, screen reader labels, reduced motion, light and dark, phone width.
+  - **A text fallback** for every block.
+- **Keys** are read only through Hermes (`agent.secret_scope.get_secret`), never from files or the environment.
+  New network calls, new stored data and new prompt text are listed in the README's privacy section.
+- **Keep it plain.** Small focused files, comments that explain why with a worked example, and no new runtime
+  dependencies.
+
+## Releases
+
+1. Bump `version` in `plugin.yaml` and add a section to `CHANGELOG.md`, following [SemVer](https://semver.org).
+2. Run the checks above, then `hermes plugins validate .`. It must pass; it is the gate for Hermes's plugin catalog.
+3. Merge to `main` and tag the commit `v<version>`.
+4. Open a pull request on `NousResearch/hermes-agent` that updates `plugin-catalog/<plugin>.yaml` to the new commit
+   SHA and version. Only the repository owner submits these.
+

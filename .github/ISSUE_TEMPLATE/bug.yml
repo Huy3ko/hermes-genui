@@ -1,0 +1,38 @@
+name: Bug
+description: Something draws wrong, breaks, or doesn't work as described
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      placeholder: "I asked 'compare TCS and Infosys' and the chart showed…"
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: The prompt you used
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: "`hermes --version` and the plugin version from `hermes plugins show hermes-genui`"
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options: [Hermes Desktop, Telegram, CLI, Other chat app]
+    validations:
+      required: true
+  - type: textarea
+    id: board
+    attributes:
+      label: Screenshot or board JSON (optional)
+      description: >-
+        Boards are stored in your profile under plugin-data/hermes-genui/blocks/<id>.json.
+        Remove anything private before pasting.

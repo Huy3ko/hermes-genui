@@ -1,0 +1,55 @@
+/* Streak */
+.hb-streak { padding: 0; overflow: hidden; }
+.hb-streak-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px 12px; }
+.hb-streak-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hb-accent-ink);
+}
+.hb-streak-count {
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.hb-streak-count span { text-transform: capitalize; }
+.hb-streak-medal {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-left: auto;
+  border-radius: 999px;
+  color: #fff;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--hb-chart-2) 45%, #fff), var(--hb-chart-2) 55%,
+    color-mix(in srgb, var(--hb-chart-2) 75%, #000));
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--hb-chart-2) 70%, transparent);
+}
+.hb-streak-week { display: grid; padding: 12px 8px; border-top: 1px solid var(--hb-line); }
+.hb-streak-day { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.hb-streak-day-label { font-size: 12.5px; color: var(--hb-muted); }
+.hb-streak-done {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--hb-accent-soft);
+  color: var(--hb-accent-ink);
+}
+.hb-streak-date {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  color: var(--hb-muted);
+  font-variant-numeric: tabular-nums;
+}
+.hb-streak-dot { width: 4px; height: 4px; border-radius: 999px; }
+.hb-streak-today .hb-streak-day-label, .hb-streak-today .hb-streak-date { font-weight: 700; color: var(--hb-ink); }
+.hb-streak-today .hb-streak-dot { background: var(--hb-ink-2); }

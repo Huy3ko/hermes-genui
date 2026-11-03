@@ -1,0 +1,44 @@
+/* Steps: one step at a time; its place top right, the step's title and text, an optional photo, then a row of dots
+   and Back / Next. */
+.hb-steps { display: flex; flex-direction: column; gap: 10px; }
+.hb-steps-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.hb-steps-place {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--hb-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hb-steps-body { display: flex; flex-direction: column; gap: 4px; min-height: 64px; }
+.hb-steps-title { font-size: 15px; line-height: 21px; font-weight: 650; }
+.hb-steps-text { margin: 0; font-size: 14px; line-height: 1.5; color: var(--hb-ink-2); }
+.hb-steps-photo { display: block; width: 100%; max-height: 220px; margin-top: 6px; border-radius: 10px; object-fit: cover; }
+.hb-steps-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.hb-steps-dots { display: flex; flex-wrap: wrap; gap: 2px; }
+/* Each dot is a 24px target with a small mark inside. */
+.hb-steps-dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.hb-steps-dot::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--hb-line-strong);
+  transition: background 0.15s, width 0.15s;
+}
+.hb-steps-dot-on::after { width: 18px; background: var(--hb-accent); }
+.hb-steps-dot:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: -2px; border-radius: 999px; }
+.hb-steps-moves { display: flex; gap: 6px; margin-left: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .hb-steps-dot::after { transition: none; }
+}

@@ -1,0 +1,54 @@
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import catalog from "../../../core/catalog.json";
+import { BlockActions } from "./actions";
+import { BlockTag } from "./BlockTag";
+
+afterEach(cleanup);
+
+const timeline = catalog.blocks.find((b) => b.kind === "timeline")!.example;
+
+describe("BlockTag", () => {
+  it("shows a placeholder while the reply is still streaming, without loading", () => {
+    const load = vi.fn();
+    render(<BlockTag id="7f3a09bc" streaming={true} load={load} />);
+    expect(screen.getByText("drawing…")).toBeTruthy();
+    expect(load).not.toHaveBeenCalled();
+  });
+
+  it("refuses a malformed id without loading", () => {
+    const load = vi.fn();
+    render(<BlockTag id="zzz" streaming={false} load={load} />);
+    expect(screen.getByText("Couldn't load this block")).toBeTruthy();
+    expect(load).not.toHaveBeenCalled();
+  });
+
+  it("shows a note when loading fails", async () => {
+    render(<BlockTag id="7f3a09bc" streaming={false} load={() => Promise.reject(new Error("404"))} />);
+    await waitFor(() => expect(screen.getByText("Couldn't load this block")).toBeTruthy());
+  });
+
+  it("shows a note when the stored data has nothing drawable", async () => {
+    render(<BlockTag id="7f3a09bc" streaming={false} load={() => Promise.resolve({ blocks: [{ type: "weather" }] })} />);
+    await waitFor(() => expect(screen.getByText("Couldn't load this block")).toBeTruthy());
+  });
+
+  it("draws the stored blocks", async () => {
+    const load = vi.fn(() => Promise.resolve({ blocks: [timeline] }));
+    render(<BlockTag id="7f3a09bc" streaming={false} load={load} />);
+    await waitFor(() => expect(screen.getByText("Day 1 · Fri 9 Oct")).toBeTruthy());
+    expect(load).toHaveBeenCalledWith("7f3a09bc");
+  });
+
+  it("hands its id to the blocks inside, so a checklist loads its board's saved ticks", async () => {
+    const rest = vi.fn(async () => ({ state: { "0": [0] } }));
+    const checklist = { type: "checklist", items: ["Passport", "Tickets"] };
+    render(
+      <BlockActions.Provider value={{ send: vi.fn(), fill: vi.fn(), rest }}>
+        <BlockTag id="7f3a09bc" streaming={false} load={() => Promise.resolve({ blocks: [checklist] })} />
+      </BlockActions.Provider>,
+    );
+    await waitFor(() => expect(screen.getByText("1 of 2 done")).toBeTruthy());
+    expect(rest).toHaveBeenCalledWith("/blocks/7f3a09bc/state");
+  });
+});

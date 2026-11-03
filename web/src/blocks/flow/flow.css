@@ -1,0 +1,119 @@
+/* Flow: boxes joined by arrows, left to right (.hb-flow-right) or top to bottom (.hb-flow-down). A group is a dashed
+   frame with its label (and count) on top; the lit box (from a steps block) gets the accent outline; boxes a walk
+   hasn't reached are dimmed; a box's chips fade in when they change; a tapped box's note opens in a panel under the
+   diagram. */
+.hb-flow { display: flex; flex-direction: column; gap: 10px; }
+.hb-flow-box { position: relative; width: 100%; min-width: 0; }
+.hb-flow-chain { display: flex; margin: 0; padding: 0; list-style: none; }
+.hb-flow-step { display: flex; align-items: center; min-width: 0; }
+.hb-flow-right { flex-direction: row; align-items: stretch; }
+.hb-flow-right .hb-flow-chain { flex-direction: row; }
+.hb-flow-right .hb-flow-step { flex: 1 1 0; align-items: stretch; }
+.hb-flow-right .hb-flow-arrow { align-self: center; }
+.hb-flow-down, .hb-flow-down .hb-flow-chain { flex-direction: column; align-items: stretch; }
+.hb-flow-down .hb-flow-step { flex-direction: column; align-items: stretch; }
+.hb-flow-arrow { display: grid; place-items: center; flex: none; width: 24px; color: var(--hb-muted); }
+.hb-flow-down .hb-flow-arrow { width: auto; height: 22px; }
+.hb-flow-down .hb-flow-arrow svg { transform: rotate(90deg); }
+.hb-flow-node {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--hb-line-strong);
+  border-radius: 10px;
+  background: var(--hb-surface);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 600;
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.hb-flow-right .hb-flow-node { flex-direction: column; justify-content: center; text-align: center; }
+button.hb-flow-node { cursor: pointer; }
+button.hb-flow-node:hover { border-color: var(--hb-accent); }
+button.hb-flow-node:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: 2px; }
+.hb-flow-open { background: var(--hb-accent-soft); border-color: color-mix(in srgb, var(--hb-accent) 45%, transparent); }
+.hb-flow-lit { border-color: var(--hb-accent); box-shadow: 0 0 0 2px var(--hb-accent); }
+.hb-flow-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--hb-accent-soft);
+  color: var(--hb-accent-ink);
+}
+.hb-flow-label { min-width: 0; }
+.hb-flow-more { margin-left: auto; color: var(--hb-muted); font-weight: 400; }
+.hb-flow-right .hb-flow-more { position: absolute; top: 2px; right: 6px; font-size: 12px; }
+.hb-flow-group {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px;
+  border: 1px dashed var(--hb-line-strong);
+  border-radius: 12px;
+  background: var(--hb-card);
+}
+.hb-flow-group-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px; }
+.hb-flow-down .hb-flow-group-head { justify-content: flex-start; }
+.hb-flow-group-label { font-size: 11.5px; font-weight: 600; color: var(--hb-muted); text-align: center; }
+.hb-flow-down .hb-flow-group-label { text-align: left; }
+.hb-flow-down .hb-flow-node { flex-wrap: wrap; }
+.hb-flow-holds { display: flex; flex-wrap: wrap; gap: 3px; animation: hb-flow-fade 0.2s ease-out; }
+.hb-flow-right .hb-flow-holds { justify-content: center; }
+.hb-flow-down .hb-flow-holds { flex-basis: 100%; }
+@keyframes hb-flow-fade { from { opacity: 0; } }
+.hb-flow-chip {
+  padding: 1px 6px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--hb-well);
+  color: var(--hb-ink-2);
+  font: 11.5px/16px ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.hb-flow-chip-accent { background: var(--hb-accent-soft); color: var(--hb-accent-ink); font-weight: 700; }
+/* A box the pass hasn't reached yet: faint, its chips only outlined. */
+.hb-flow-idle { color: var(--hb-muted); }
+.hb-flow-idle .hb-flow-holds { opacity: 0.6; }
+.hb-flow-idle .hb-flow-chip { border-style: dashed; border-color: var(--hb-line-strong); background: none; color: var(--hb-muted); font-family: inherit; }
+.hb-flow-packet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 999px;
+  background: var(--hb-accent);
+  box-shadow: 0 0 0 4px var(--hb-accent-soft), 0 0 14px var(--hb-accent);
+  opacity: 0;
+  pointer-events: none;
+}
+.hb-flow-right .hb-flow-group > .hb-flow-chain { flex: 1; }
+.hb-flow-panel {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(var(--hb-accent-soft), var(--hb-accent-soft)), var(--hb-surface);
+  border: 1px solid color-mix(in srgb, var(--hb-accent) 30%, transparent);
+}
+.hb-flow-panel-title { font-size: 13px; font-weight: 700; color: var(--hb-accent-ink); }
+.hb-flow-note { margin: 2px 0 0; font-size: 13.5px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) {
+  .hb-flow-node { transition: none; }
+  .hb-flow-holds { animation: none; }
+}

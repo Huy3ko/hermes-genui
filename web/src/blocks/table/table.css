@@ -1,0 +1,78 @@
+/* Tables */
+/* A table keeps its natural width (columns close together); the card hugs it. It scrolls inside the card: sideways
+   when wider than the chat, down past 520px with the header kept in view. */
+.hb-table-card { width: fit-content; max-width: 100%; padding: 4px 0 0; overflow: hidden; }
+.hb-table-caption { padding: 10px 16px 2px; }
+.hb-table-scroll { max-height: 520px; overflow: auto; overscroll-behavior: contain; }
+.hb-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13.5px;
+  line-height: 20px;
+  font-variant-numeric: tabular-nums;
+}
+/* With 3 or more columns, a narrow chat scrolls the table rather than squeezing every column. */
+.hb-table-wide { min-width: 420px; }
+.hb-table th, .hb-table td {
+  height: 36px;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--hb-line);
+  background: none;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+/* The header stays in view as the rows scroll; it is painted like the card so rows don't show through. */
+.hb-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 34px;
+  padding: 0;
+  border-bottom-color: var(--hb-line-strong);
+  background: linear-gradient(var(--hb-card), var(--hb-card)), var(--hb-surface);
+}
+.hb-table th button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: 34px;
+  padding: 0 12px;
+  border: 0;
+  background: none;
+  color: var(--hb-muted);
+  font: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.hb-table th.hb-num button { justify-content: flex-end; }
+.hb-table .hb-first, .hb-table th.hb-first button { padding-left: 16px; }
+.hb-table td:last-child, .hb-table th:last-child button { padding-right: 16px; }
+.hb-table tbody tr:last-child td { border-bottom: 0; }
+.hb-table td.hb-first { font-weight: 600; }
+.hb-table td.hb-num { text-align: right; }
+.hb-table td.hb-wrap { min-width: 180px; white-space: normal; }
+/* Sorting: a faint ↕ on the header under the pointer, ↑ or ↓ on the sorted one. */
+.hb-sort { opacity: 0; font-weight: 400; letter-spacing: 0; transition: opacity 0.12s; }
+.hb-table th:hover .hb-sort, .hb-table th button:focus-visible .hb-sort { opacity: 0.6; }
+.hb-table th.hb-sorted .hb-sort { opacity: 1; color: var(--hb-ink-2); }
+/* The best row: an accent edge on its first cell and a chip; the best column: an accent line under its header. */
+.hb-table tr.hb-best td.hb-first { box-shadow: inset 3px 0 0 var(--hb-accent); }
+.hb-table th.hb-best-col { box-shadow: inset 0 -2px 0 var(--hb-accent); }
+.hb-table .hb-chip { margin-left: 8px; vertical-align: 1px; padding: 0 7px; font-size: 11px; line-height: 16px; letter-spacing: 0; text-transform: none; }
+.hb-table th .hb-chip { margin-left: 4px; }
+/* Changes: green for a rise, orange for a fall, with a small bar growing from the middle. */
+.hb-table td.hb-up { color: var(--hb-good); }
+.hb-table td.hb-down { color: var(--hb-warn); }
+.hb-mini { display: inline-block; position: relative; width: 56px; height: 8px; margin-right: 8px; vertical-align: 0; }
+.hb-mini-zero { position: absolute; top: -3px; bottom: -3px; left: 50%; width: 1px; background: var(--hb-line-strong); }
+.hb-mini-bar { position: absolute; top: 0; bottom: 0; border-radius: 2px; background: currentColor; }
+.hb-table td.hb-table-empty { color: var(--hb-muted); font-weight: 400; text-align: center; }
+@media (prefers-reduced-motion: reduce) { .hb-sort { transition: none; } }
+.hb-section .hb-table-card { background: none; border: 0; }

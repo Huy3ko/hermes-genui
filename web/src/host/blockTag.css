@@ -1,0 +1,18 @@
+/* The block tag's own states */
+.hb-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 10px 14px;
+  max-width: 100%;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--foreground, #1f2328) 5%, transparent);
+  color: var(--ui-text-tertiary, #6b7280);
+  font-size: 13px;
+}
+.hb-pulse { animation: hb-pulse 1.2s ease-in-out infinite; }
+@keyframes hb-pulse { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) {
+  .hb-pulse { animation: none; }
+}

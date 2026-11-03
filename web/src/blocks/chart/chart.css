@@ -1,0 +1,144 @@
+/* Charts are drawn at their real width and fill their place inside a layout block (a column, a cell, a tab). At the
+   top of a reply they stop at 720px; a long line (60+ points) takes the board's full width. */
+.hb-chart { margin: 0; padding: 14px 16px 10px; }
+.hb-blocks > .hb-chart:not(.hb-chart-wide) { max-width: 720px; }
+.hb-chart-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hb-chart-title {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hb-muted);
+}
+.hb-chart-figure { display: flex; align-items: baseline; gap: 8px; margin-top: 2px; min-width: 0; }
+.hb-chart-big {
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.hb-chart-at {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--hb-muted);
+  font-variant-numeric: tabular-nums;
+}
+.hb-chart-other { margin-left: 8px; }
+.hb-chart-plot { position: relative; margin-top: 8px; }
+.hb-chart-svg { display: block; width: 100%; overflow: visible; touch-action: none; user-select: none; }
+.hb-chart-svg:focus-visible, .hb-pie-svg:focus-visible, .hb-hbar-grid:focus-visible {
+  outline: 2px solid var(--hb-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.hb-chart-source { margin-top: 2px; text-align: right; font-size: 11px; color: var(--hb-muted); }
+
+/* Marks and text inside the drawings */
+.hb-chart-axis, .hb-chart-tick { font-size: 11px; fill: var(--hb-muted); font-variant-numeric: tabular-nums; }
+.hb-chart-value { font-size: 11.5px; font-weight: 500; fill: var(--hb-ink-2); font-variant-numeric: tabular-nums; }
+.hb-chart-end { font-size: 11.5px; font-weight: 600; fill: var(--hb-ink); font-variant-numeric: tabular-nums; }
+/* Text drawn over lines (a change line's Start label): a rim of the page's colour behind the letters. */
+.hb-chart-halo { paint-order: stroke; stroke: var(--hb-surface); stroke-width: 3px; stroke-linejoin: round; }
+.hb-chart-rule { stroke: var(--hb-line); }
+.hb-chart-rule-strong { stroke: var(--hb-line-strong); }
+.hb-chart-dot { stroke: var(--hb-surface); stroke-width: 2; }
+.hb-chart-svg g, .hb-hbar-bar { transition: opacity 0.15s; }
+.hb-chart-draw { animation: hb-chart-draw 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+@keyframes hb-chart-draw { to { stroke-dashoffset: 0; } }
+
+/* The hover card (ChartTip) */
+.hb-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+  padding: 8px 10px;
+  border: 1px solid var(--hb-line);
+  border-radius: 8px;
+  background: var(--hb-surface);
+  box-shadow: var(--hb-shadow);
+  color: var(--hb-ink);
+  font-size: 12.5px;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.hb-tip-on { opacity: 1; }
+.hb-tip-title, .hb-tip-note { font-size: 11.5px; color: var(--hb-muted); }
+.hb-tip-row { display: flex; align-items: center; gap: 8px; }
+.hb-tip-row i { flex: none; width: 8px; height: 8px; border-radius: 2px; }
+.hb-tip-name { flex: 1; color: var(--hb-ink-2); }
+.hb-tip-value { margin-left: 12px; font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-chart-draw { animation: none; stroke-dashoffset: 0; }
+  .hb-tip, .hb-chart-svg g, .hb-hbar-bar, .hb-slice, .hb-pie-legend tr { transition: none; }
+}
+
+.hb-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--hb-muted);
+}
+.hb-legend-item { display: inline-flex; align-items: center; gap: 6px; }
+.hb-legend-dot { flex: none; width: 10px; height: 10px; border-radius: 999px; }
+.hb-legend-value { color: var(--hb-ink-2); font-variant-numeric: tabular-nums; }
+
+/* Pie and donut: the legend sits beside the drawing from 440px wide, below it when narrower. It stops at 420px so
+   amounts stay near their names when the donut fills a wide section. */
+.hb-pie { container-type: inline-size; }
+.hb-pie-body { position: relative; display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
+@container (min-width: 440px) {
+  .hb-pie-body { flex-direction: row; align-items: center; gap: 20px; }
+  .hb-pie-body .hb-pie-svg { margin: 0; }
+}
+.hb-pie-svg { display: block; flex: none; margin: 0 auto; user-select: none; }
+.hb-pie-total { font-size: 17px; font-weight: 650; fill: var(--hb-ink); font-variant-numeric: tabular-nums; }
+.hb-slice { cursor: pointer; stroke: var(--hb-surface); stroke-width: 2; stroke-linejoin: round; transition: opacity 0.15s; }
+.hb-pie-legend { flex: 1; min-width: 0; max-width: 420px; border-collapse: collapse; font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums; }
+.hb-pie-legend tr { cursor: pointer; transition: opacity 0.15s; }
+.hb-pie-legend td { padding: 3px 12px 3px 0; vertical-align: top; }
+.hb-pie-legend td:last-child { padding-right: 0; }
+.hb-pie-swatch { width: 10px; }
+.hb-pie-swatch i { display: block; width: 10px; height: 10px; margin-top: 4px; border-radius: 3px; }
+.hb-pie-name { width: 100%; color: var(--hb-ink-2); overflow-wrap: anywhere; }
+.hb-pie-value { text-align: right; font-weight: 600; white-space: nowrap; }
+.hb-pie-share { text-align: right; color: var(--hb-muted); white-space: nowrap; }
+
+/* Horizontal bars: label | bar | value on each row. */
+.hb-hbar-box { position: relative; margin: 10px 0 4px; }
+.hb-hbar-grid {
+  display: grid;
+  grid-template-columns: fit-content(40%) minmax(0, 1fr) max-content;
+  gap: 8px 12px;
+  align-items: center;
+  font-size: 13px;
+}
+.hb-hbar-label { min-width: 64px; line-height: 17px; color: var(--hb-ink-2); }
+.hb-hbar-tracks, .hb-hbar-values { display: flex; flex-direction: column; gap: 4px; }
+.hb-hbar-track { position: relative; height: 14px; }
+.hb-hbar-zero { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--hb-line-strong); }
+.hb-hbar-bar { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+.hb-hbar-value { line-height: 14px; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hb-hbar-many .hb-hbar-track { height: 12px; }
+.hb-hbar-many .hb-hbar-value { font-size: 12px; line-height: 12px; }
+.hb-hbar-up { color: var(--hb-good); }
+.hb-hbar-down { color: var(--hb-warn); }

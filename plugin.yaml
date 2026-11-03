@@ -1,0 +1,34 @@
+manifest_version: 2
+name: hermes-genui
+version: "0.2.0"
+description: >-
+  Visual, interactive blocks drawn right inside Hermes Desktop replies: charts, tables, timelines, photo strips,
+  calculators with live sliders, forms, checklists that remember their ticks, flash cards and step-by-step
+  explainers. The model lays them out with the show_blocks tool or follows a bundled recipe (trip planner,
+  comparison, what-if maths, stock dashboard, report, explainer and more), and two live tools bring in real data:
+  market_history for prices from Yahoo Finance and find_photos for checked, credited photos from Wikimedia Commons,
+  Openverse, pages your own web search finds and, with your own keys, Unsplash, Pexels and Tavily. Every block is checked before it is stored, and on
+  surfaces that can't draw (Telegram, the CLI and others) the same answers arrive as plain text and Markdown.
+author: Sagar Mainkar
+license: MIT
+homepage: https://github.com/sagarmainkar/hermes-genui
+tags: [desktop, generative-ui, charts, dashboards, visualization, photos, markets, recipes]
+requires_hermes: ">=0.22.5"
+provides_tools: [show_blocks, market_history, find_photos, save_recipe]
+provides_hooks: [pre_llm_call, transform_llm_output]
+config_schema:
+  unsplash_access_key:
+    type: secret
+    env: UNSPLASH_ACCESS_KEY
+    label: Unsplash access key (optional)
+    description: Adds Unsplash photos to find_photos. Without it, photos still come from Wikimedia Commons and Openverse.
+  pexels_api_key:
+    type: secret
+    env: PEXELS_API_KEY
+    label: Pexels API key (optional)
+    description: Adds Pexels photos to find_photos. Without it, photos still come from Wikimedia Commons and Openverse.
+  tavily_api_key:
+    type: secret
+    env: TAVILY_API_KEY
+    label: Tavily API key (optional)
+    description: Adds images from Tavily web search to find_photos. Without it, find_photos uses the free sources.

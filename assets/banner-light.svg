@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="Hermes GenUI: charts, tables, timelines and interactive tools drawn inside Hermes chat replies">
+  <defs>
+    <linearGradient id="title" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#4f7cff"/><stop offset="0.55" stop-color="#8b5cf6"/><stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#4f7cff" stop-opacity="0.14"/><stop offset="1" stop-color="#ec4899" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0b1020" flood-opacity="0.1"/></filter>
+  </defs>
+  <rect width="1200" height="600" fill="#f7f8fc"/>
+  <circle cx="900" cy="300" r="380" fill="url(#glow)"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <text x="72" y="118" font-size="20" font-weight="600" fill="#5d6573" letter-spacing="3">A HERMES DESKTOP PLUGIN</text>
+    <text x="68" y="214" font-size="92" font-weight="800" fill="url(#title)" letter-spacing="-2">Hermes</text>
+    <text x="68" y="306" font-size="92" font-weight="800" fill="url(#title)" letter-spacing="-2">GenUI</text>
+    <text x="72" y="372" font-size="27" font-weight="500" fill="#1f2328">Answers you can see and use.</text>
+    <text x="72" y="412" font-size="21" fill="#5d6573">Charts, tables, timelines, photos, calculators,</text>
+    <text x="72" y="442" font-size="21" fill="#5d6573">forms and explainers, drawn right in the chat.</text>
+    <g font-size="17" font-weight="600">
+      <rect x="72" y="482" width="118" height="38" rx="19" fill="#4f7cff" fill-opacity="0.14"/><text x="131" y="507" text-anchor="middle" fill="#4f7cff">30+ blocks</text>
+      <rect x="202" y="482" width="122" height="38" rx="19" fill="#8b5cf6" fill-opacity="0.16"/><text x="263" y="507" text-anchor="middle" fill="#8b5cf6">interactive</text>
+      <rect x="336" y="482" width="138" height="38" rx="19" fill="#10b981" fill-opacity="0.16"/><text x="405" y="507" text-anchor="middle" fill="#10b981">no HTML, safe</text>
+    </g>
+  </g>
+  <g transform="translate(600 92)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <g filter="url(#shadow)">
+      <rect x="0" y="0" width="528" height="416" rx="22" fill="#ffffff" stroke="#e4e7ef"/>
+    </g>
+    <text x="28" y="46" font-size="19" font-weight="700" fill="#1f2328">Goa · 3 days · ₹50,000</text>
+    <g transform="translate(28 66)">
+      <rect width="148" height="72" rx="12" fill="none" stroke="#e4e7ef"/><text x="14" y="26" font-size="13" fill="#5d6573">Planned</text><text x="14" y="56" font-size="24" font-weight="700" fill="#1f2328">₹45,200</text>
+      <rect x="162" width="148" height="72" rx="12" fill="none" stroke="#e4e7ef"/><text x="176" y="26" font-size="13" fill="#5d6573">Buffer</text><text x="176" y="56" font-size="24" font-weight="700" fill="#1a7f37">₹4,800</text>
+      <rect x="324" width="148" height="72" rx="12" fill="none" stroke="#e4e7ef"/><text x="338" y="26" font-size="13" fill="#5d6573">NIFTY 50</text><text x="338" y="56" font-size="24" font-weight="700" fill="#c2410c">▼ 8.0%</text>
+    </g>
+    <g transform="translate(96 252)"><circle cx="0" cy="0" r="46" fill="none" stroke="#4f7cff" stroke-width="20" stroke-dasharray="84.7 204.3" stroke-dashoffset="0.0" transform="rotate(-90)"/><circle cx="0" cy="0" r="46" fill="none" stroke="#f59e0b" stroke-width="20" stroke-dasharray="67.4 221.6" stroke-dashoffset="-86.7" transform="rotate(-90)"/><circle cx="0" cy="0" r="46" fill="none" stroke="#10b981" stroke-width="20" stroke-dasharray="55.8 233.2" stroke-dashoffset="-156.1" transform="rotate(-90)"/><circle cx="0" cy="0" r="46" fill="none" stroke="#8b5cf6" stroke-width="20" stroke-dasharray="38.5 250.5" stroke-dashoffset="-213.9" transform="rotate(-90)"/><circle cx="0" cy="0" r="46" fill="none" stroke="#06b6d4" stroke-width="20" stroke-dasharray="32.7 256.3" stroke-dashoffset="-254.3" transform="rotate(-90)"/><text x="0" y="6" font-size="17" font-weight="700" fill="#1f2328" text-anchor="middle">₹50K</text></g>
+    <g transform="translate(196 186)"><rect x="0" y="78" width="22" height="62" rx="4" fill="#4f7cff"/><rect x="34" y="44" width="22" height="96" rx="4" fill="#4f7cff"/><rect x="68" y="62" width="22" height="78" rx="4" fill="#4f7cff"/><rect x="102" y="12" width="22" height="128" rx="4" fill="#4f7cff"/><rect x="136" y="30" width="22" height="110" rx="4" fill="#4f7cff"/><line x1="-6" x2="164" y1="140" y2="140" stroke="#e4e7ef" stroke-width="2"/></g>
+    <g transform="translate(28 330)">
+      <line x1="252" x2="500" y1="40" y2="40" stroke="#e4e7ef" stroke-dasharray="4 4"/>
+      <polyline points="0,60 30,52 60,66 90,40 120,46 150,28 180,34 210,18" transform="translate(262 0)" fill="none" stroke="#1a7f37" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+      <rect x="0" y="0" width="230" height="64" rx="12" fill="#4f7cff" fill-opacity="0.10"/>
+      <text x="16" y="27" font-size="14" font-weight="700" fill="#4f7cff">✦ Make it ₹40,000</text>
+      <text x="16" y="49" font-size="13" fill="#5d6573">buttons ask the next question</text>
+    </g>
+  </g>
+</svg>

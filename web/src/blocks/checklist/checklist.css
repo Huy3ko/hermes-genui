@@ -1,0 +1,52 @@
+/* Checklist */
+.hb-checklist { display: flex; flex-direction: column; }
+.hb-checklist-head { display: flex; align-items: baseline; gap: 8px; }
+.hb-checklist-head .hb-card-title { flex: 1; min-width: 0; }
+.hb-checklist-count {
+  margin-left: auto;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--hb-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hb-checklist-count-done { color: var(--hb-good); }
+.hb-checklist-track { display: block; height: 6px; margin: 8px 0 4px; overflow: hidden; border-radius: 999px; background: var(--hb-well); }
+.hb-checklist-fill { display: block; height: 100%; border-radius: 999px; background: var(--hb-good); transition: width 0.3s ease; }
+.hb-checklist-group { padding: 10px 0 2px; font-size: 12px; font-weight: 700; color: var(--hb-muted); }
+.hb-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 7px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.hb-check:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: 2px; border-radius: 8px; }
+.hb-check-mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 0.5px;
+  border: 2px solid var(--hb-line-strong);
+  border-radius: 999px;
+  color: var(--hb-muted);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.15s, border-color 0.15s;
+}
+.hb-check-on .hb-check-mark { border-color: var(--hb-good); background: var(--hb-good); color: #fff; }
+.hb-check-text { flex: 1; min-width: 0; font-size: 14.5px; line-height: 21px; transition: color 0.15s; }
+.hb-check-on .hb-check-text { color: var(--hb-muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+@media (prefers-reduced-motion: reduce) {
+  .hb-checklist-fill, .hb-check-mark, .hb-check-text { transition: none; }
+}

@@ -1,0 +1,64 @@
+/* Containers. A row's small cards (stats, badges) end at the same height; a tall block never sits in a row
+   (layout/read.ts draws that row as a stack). */
+.hb-row { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.hb-row-cell { flex: 1 1 140px; min-width: 0; display: flex; flex-direction: column; }
+.hb-row-cell > * { flex: 1; }
+/* Grid: each cell keeps its block's own height, top-aligned in its row. */
+.hb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; align-items: start; }
+.hb-grid-cell { min-width: 0; display: flex; flex-direction: column; }
+.hb-row-cell-own { flex: none; align-self: center; }
+.hb-section { display: flex; flex-direction: column; gap: 8px; }
+.hb-section-body { display: flex; flex-direction: column; gap: 10px; }
+.hb-section .hb-card { background: var(--hb-well); border-color: transparent; }
+.hb-section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.hb-section-toggle .hb-card-title { flex: 1; min-width: 0; }
+.hb-chevron { flex: none; color: var(--hb-muted); transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.hb-chevron-open { transform: rotate(90deg); }
+/* Tabs: underlined tab buttons in a bar that scrolls sideways when they don't fit, above one panel of blocks. */
+.hb-tabs { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.hb-tab-bar {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--hb-line);
+}
+.hb-tab-bar::-webkit-scrollbar { display: none; }
+.hb-tab {
+  flex: none;
+  margin-bottom: -1px;
+  padding: 7px 12px 8px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 8px 8px 0 0;
+  background: none;
+  color: var(--hb-muted);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.hb-tab:hover { color: var(--hb-ink-2); background: var(--hb-well); }
+.hb-tab-on, .hb-tab-on:hover { color: var(--hb-accent-ink); border-bottom-color: var(--hb-accent); background: none; }
+.hb-tab:focus-visible { outline: 2px solid var(--hb-accent); outline-offset: -2px; }
+.hb-tab-panel { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+/* Columns: dashboards side by side, each block at its own height (a short card beside a tall one stays short). */
+.hb-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 10px; align-items: start; }
+.hb-column { min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+/* Beside other blocks a table's card fills its column or cell (on its own it hugs its columns). */
+:is(.hb-column, .hb-grid-cell) > .hb-table-card { width: auto; }

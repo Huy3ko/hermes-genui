@@ -1,0 +1,18 @@
+.hb-callout strong { color: var(--hb-ink); font-weight: 650; }
+.hb-callout {
+  display: flex;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 19px;
+}
+.hb-callout-icon { flex: none; margin-top: 1px; }
+.hb-callout-body { min-width: 0; color: var(--hb-ink-2); }
+.hb-callout-title { font-weight: 700; color: var(--hb-ink); }
+.hb-callout-info { background: var(--hb-accent-soft); }
+.hb-callout-info .hb-callout-icon { color: var(--hb-accent-ink); }
+.hb-callout-tip { background: color-mix(in srgb, var(--hb-good) 11%, transparent); }
+.hb-callout-tip .hb-callout-icon { color: var(--hb-good); }
+.hb-callout-warn { background: color-mix(in srgb, var(--hb-warn) 10%, transparent); }
+.hb-callout-warn .hb-callout-icon { color: var(--hb-warn); }

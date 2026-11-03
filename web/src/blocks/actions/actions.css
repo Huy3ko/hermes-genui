@@ -1,0 +1,2 @@
+/* A row of pill buttons (the pills themselves are in styles/shared.css). */
+.hb-actions { display: flex; flex-wrap: wrap; gap: 8px; }
