@@ -20,7 +20,8 @@ ticks, and step-by-step explainers.</p>
 
 <p align="center">
   <img src="assets/demo.gif" alt="The title 'Hermes gets its generative UI today', a hover card gliding across a stock chart of NVDA, AAPL and MSFT, then a 401(k) slider moving from 6% to 10%" width="800"><br>
-  <a href="assets/demo.mp4"><b>▶ Watch the 1-minute demo</b></a> (with sound): a Yosemite trip plan, a stock comparison, an explainer and a 401(k) what-if
+  <a href="assets/demo.mp4"><b>▶ Watch the 1-minute demo</b></a> (with sound): a Yosemite trip plan, a stock comparison, an explainer and a 401(k) what-if<br>
+  <a href="https://youtu.be/jknqytZrXAw">or watch it on YouTube</a>
 </p>
 
 ---
