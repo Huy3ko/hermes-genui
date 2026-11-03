@@ -13,15 +13,14 @@
   <a href="https://github.com/sagarmainkar/hermes-genui/actions"><img alt="Checks" src="https://github.com/sagarmainkar/hermes-genui/actions/workflows/checks.yml/badge.svg"></a>
 </p>
 
-<p align="center"><b>Ask "How's the market?" and get a chart, not a paragraph.</b><br>
-Hermes GenUI lets your Hermes agent answer with <b>real, interactive UI</b> inside Hermes Desktop chat replies:
-charts, tables, day-by-day plans, photo strips, calculators with live charts, forms, checklists that remember your
-ticks, and step-by-step explainers.</p>
+**Ask "How's the market?" and get a chart, not a paragraph.** Hermes GenUI lets your Hermes agent answer with
+**real, interactive UI** inside Hermes Desktop chat replies: charts, tables, day-by-day plans, photo strips, calculators
+with live charts, forms, checklists that remember your ticks, and step-by-step explainers.
 
 https://github.com/user-attachments/assets/5b274da9-b756-4bb6-be72-9a5427fadc0d
 
-<p align="center">A one-minute demo with sound: a Yosemite trip plan, a stock comparison, an explainer and a 401(k)
-what-if. <a href="https://youtu.be/jknqytZrXAw"><b>▶ Also on YouTube</b></a></p>
+A one-minute demo with sound: a Yosemite trip plan, a stock comparison, an explainer and a 401(k) what-if.
+**[▶ Also on YouTube](https://youtu.be/jknqytZrXAw)**
 
 ---
 
@@ -29,9 +28,9 @@ what-if. <a href="https://youtu.be/jknqytZrXAw"><b>▶ Also on YouTube</b></a></
 
 | | |
 |:---:|:---:|
-| <img src="assets/screens/compare.png" alt="NVDA, AAPL and MSFT compared: price cards with trend lines and a percent-change chart"> | <img src="assets/screens/trip.png" alt="A Yosemite trip: photos, quick facts, places to see and the start of a day-by-day plan"> |
+| ![NVDA, AAPL and MSFT compared: price cards with trend lines and a percent-change chart](assets/screens/compare.png) | ![A Yosemite trip: photos, quick facts, places to see and the start of a day-by-day plan](assets/screens/trip.png) |
 | **"Compare NVDA, AAPL and MSFT over the past year"** | **"Plan a 4-day Yosemite trip for two in May, around $2,000"** |
-| <img src="assets/screens/explainer.png" alt="How a transformer works: a diagram with a step-by-step walkthrough"> | <img src="assets/screens/finance.png" alt="A 401(k) calculator: sliders for salary and contribution, and two balance lines splitting apart"> |
+| ![How a transformer works: a diagram with a step-by-step walkthrough](assets/screens/explainer.png) | ![A 401(k) calculator: sliders for salary and contribution, and two balance lines splitting apart](assets/screens/finance.png) |
 | **"Explain how transformers work"** | **"I put 6% in my 401(k). What if I raise it to 10%?"** |
 
 The model decides **what** to show. The plugin decides **how** it looks, so every answer comes out in one
