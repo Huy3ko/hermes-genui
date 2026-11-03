@@ -24,6 +24,8 @@ ticks, and step-by-step explainers.</p>
   <a href="https://youtu.be/jknqytZrXAw">or watch it on YouTube</a>
 </p>
 
+https://github.com/user-attachments/assets/5b274da9-b756-4bb6-be72-9a5427fadc0d
+
 ---
 
 ## ✨ What it looks like
