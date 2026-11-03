@@ -29,10 +29,10 @@ what-if. <a href="https://youtu.be/jknqytZrXAw"><b>▶ Also on YouTube</b></a></
 
 | | |
 |:---:|:---:|
-| <img src="assets/screens/compare.png" alt="Two banks compared: cards with trend lines and a percent-change chart"> | <img src="assets/screens/trip.png" alt="A Goa trip: photos, budget donut and a day-by-day plan"> |
-| **"Compare HDFC Bank and ICICI Bank over a year"** | **"Plan a ₹50,000 Goa trip for two"** |
-| <img src="assets/screens/explainer.png" alt="How a transformer works: a diagram with a step-by-step walkthrough"> | <img src="assets/screens/finance.png" alt="A personal finance dashboard with a savings calculator"> |
-| **"Explain how transformers work"** | **"Build me a personal finance dashboard"** |
+| <img src="assets/screens/compare.png" alt="NVDA, AAPL and MSFT compared: price cards with trend lines and a percent-change chart"> | <img src="assets/screens/trip.png" alt="A Yosemite trip: photos, quick facts, places to see and the start of a day-by-day plan"> |
+| **"Compare NVDA, AAPL and MSFT over the past year"** | **"Plan a 4-day Yosemite trip for two in May, around $2,000"** |
+| <img src="assets/screens/explainer.png" alt="How a transformer works: a diagram with a step-by-step walkthrough"> | <img src="assets/screens/finance.png" alt="A 401(k) calculator: sliders for salary and contribution, and two balance lines splitting apart"> |
+| **"Explain how transformers work"** | **"I put 6% in my 401(k). What if I raise it to 10%?"** |
 
 The model decides **what** to show. The plugin decides **how** it looks, so every answer comes out in one
 consistent, accessible design that follows your light or dark theme and your language's number format
@@ -62,15 +62,15 @@ to check the details.
 
 | | Try asking |
 |---|---|
-| 📈 **Markets** | *How's the NIFTY doing this year?* · *Compare HDFC Bank, ICICI Bank and Kotak over a year* · *Build a dashboard comparing TCS, Infosys and Wipro, with a tab each* |
-| 💰 **Money** | *EMI on a ₹40 lakh home loan, let me play with the rate* · *What will ₹10,000 a month in a SIP be worth in 15 years?* · *Build me a personal finance dashboard: take-home 1.8 lakh, rent 35k, …* |
-| ✈️ **Trips and plans** | *Plan a 5-day Kerala trip for a family of four in December* · *Show me Hampi* · *A packing checklist for Ladakh in June* |
-| 📊 **Reports** | *Write a report on India's electric vehicle market* · *Top 10 Indian companies by market cap* · *Where does my ₹50,000 budget go?* |
-| 🧠 **Learn and explain** | *Explain how transformers work* · *How does a UPI payment work?* · *Explain how compound interest grows my money* · *Make me flash cards on photosynthesis* |
+| 📈 **Markets** | *How's the S&P 500 doing this year?* · *Compare NVDA, AAPL and MSFT over the past year* · *Build a dashboard comparing Tesla, Ford and GM, with a tab each* · *How's the NIFTY doing this year?* |
+| 💰 **Money** | *Mortgage on a $450,000 home, let me play with the rate* · *What will $500 a month be worth in 20 years?* · *I put 6% in my 401(k). What if I raise it to 10%?* · *EMI on a ₹40 lakh home loan* |
+| ✈️ **Trips and plans** | *Plan a 4-day Yosemite trip for two in May* · *Show me Kyoto* · *A packing checklist for Iceland in June* · *Plan a 5-day Kerala trip for a family of four* |
+| 📊 **Reports** | *Write a report on the electric vehicle market* · *Top 10 companies by market cap* · *Where does my $4,000 a month go?* |
+| 🧠 **Learn and explain** | *Explain how transformers work* · *How does a card payment go through?* · *Explain how compound interest grows my money* · *Make me flash cards on photosynthesis* |
 | 🔁 **Track** | *Track my 30-day walking streak* · *A checklist for moving house* (ticks are saved) |
 | 🛠️ **Your own** | *Make this a recipe so you always build my weekly review this way* (the recipe builder saves it) |
 
-Buttons under each board ask the obvious next question, such as *Make it ₹40,000*, *Add Thekkady* or *More
+Buttons under each board ask the obvious next question, such as *Make it $1,500*, *Add a day in Sequoia* or *More
 technical*, so you can keep going without typing.
 
 ## 🚀 Install
@@ -100,8 +100,8 @@ Then turn on the drawing half in Hermes Desktop:
 
 Start a new chat and try:
 
-> *How's the NIFTY doing this year?* · *Compare TCS, Infosys and Wipro over a year* · *Plan a 5-day Kerala trip for
-> a family of four* · *Explain how a UPI payment works* · *EMI on a ₹40 lakh home loan, let me play with the rate*
+> *Compare NVDA, AAPL and MSFT over the past year* · *Plan a 4-day Yosemite trip for two* · *Explain how transformers
+> work* · *Mortgage on a $450,000 home, let me play with the rate* · *How's the NIFTY doing this year?*
 
 ### 🔑 Optional keys, for more and better photos
 
