@@ -57,8 +57,18 @@ save your own.
 
 ## 💬 What you can ask
 
-Just ask the way you normally would. The model picks the blocks, and for bigger asks it may show a short form first
-to check the details.
+**Pretty much anything.** There's no fixed set of screens: the model builds each answer from the blocks above to
+fit the question, so something nobody planned for still comes back as a report, a dashboard or a walkthrough. For
+bigger asks it may show a short form first to check the details.
+
+**Bring your own data.** The blocks aren't tied to this plugin's data tools. Whatever your agent can reach (your own
+tools, MCP servers, files, web search) can feed a board: ask it to fetch the data and show it, and the model lays it
+out with the same components.
+
+> [!TIP]
+> **Use a capable model.** A good board means planning a layout and writing valid structured data in one go. It's
+> tested with DeepSeek V4.1 Flash, where it works great. If boards come out thin or keep failing their checks, try a
+> stronger model.
 
 | | Try asking |
 |---|---|
@@ -67,6 +77,7 @@ to check the details.
 | ✈️ **Trips and plans** | *Plan a 4-day Yosemite trip for two in May* · *Show me Kyoto* · *A packing checklist for Iceland in June* · *Plan a 5-day Kerala trip for a family of four* |
 | 📊 **Reports** | *Write a report on the electric vehicle market* · *Top 10 companies by market cap* · *Where does my $4,000 a month go?* |
 | 🧠 **Learn and explain** | *Explain how transformers work* · *How does a card payment go through?* · *Explain how compound interest grows my money* · *Make me flash cards on photosynthesis* |
+| 🔌 **Your own data** | *Read sales.csv and build me a dashboard* · *Use the GitHub tools to chart my open issues by label* · *Pull today's tickets from the helpdesk MCP and rank them by urgency* |
 | 🔁 **Track** | *Track my 30-day walking streak* · *A checklist for moving house* (ticks are saved) |
 | 🛠️ **Your own** | *Make this a recipe so you always build my weekly review this way* (the recipe builder saves it) |
 
