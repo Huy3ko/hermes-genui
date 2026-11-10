@@ -153,6 +153,10 @@ flowchart LR
 - **Every block is validated** before it's stored, and the model gets exact errors to fix. Desktop's readers also
   skip anything malformed, so a bad block never breaks the rest of the board.
 - **Outside Desktop** (Telegram, the CLI and other chat apps), the same board is sent as readable Markdown.
+- **One surface falls through both paths:** a browser surface of the Hermes **web UI** is served as a *local*
+  session, so it reports `local` — the same value Hermes Desktop reports. The drawing rule therefore still applies,
+  `show_blocks` is still offered, and the text fallback is skipped for the same reason — yet that surface has no
+  block renderer, so the tag arrives literally.
 
 ## 🔒 Privacy, network and security
 
@@ -192,6 +196,7 @@ Found a security issue? Please see [SECURITY.md](SECURITY.md).
 | The plugin isn't in **Capabilities → Plugins** | Switch the profile selector at the top to the profile you installed it in. |
 | "Couldn't load this block" | Run `hermes gateway restart` after installing or updating. |
 | A board arrives as text | You're outside Hermes Desktop (Telegram, the CLI), which is by design. In Desktop, check the plugin's **Desktop** switch. |
+| A literal `::blocks{id="…"}` line, in the Hermes web UI | That surface draws nothing and reports itself as `local`, like Desktop, so the Markdown fallback is skipped too. Open the chat in Hermes Desktop, or ask for a Markdown table. |
 | Red "Unnamed call" rows, or `tool_call 'calls' is not valid JSON` | Tool search is on. Run `hermes config set tools.tool_search.enabled off` (add `-p <profile>`), then start a new chat. |
 | The model built an HTML widget instead | Start a new chat, or ask "draw it with blocks". Tool search being on can also cause this; see Install. |
 | Few or slow photos | Add a photo key above. A source that fails is skipped automatically and retried after 10 minutes. |
